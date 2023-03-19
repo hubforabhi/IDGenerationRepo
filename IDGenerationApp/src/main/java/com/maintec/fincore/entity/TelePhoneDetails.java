@@ -3,39 +3,40 @@ package com.maintec.fincore.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Email", schema = "public")
+@Table(name = "Telephone", schema = "public")
 @Data
-public class EmailDetails {
+public class TelePhoneDetails {
 
     @Id
-    @Column(name = "FC_EMAILDETAILS_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMAIL_SEQUENCER")
-    @SequenceGenerator(name = "EMAIL_SEQUENCER", sequenceName = "EMAIL_SEQUENCER")
+    @Column(name = "FC_Tele_Phone_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Tele_Phone_SEQUENCER")
+    @SequenceGenerator(name = "Tele_Phone_SEQUENCER", sequenceName = "Tele_Phone_SEQUENCER")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id")
     private ID customerId;
 
-    //private Long customerID;
+    @Column(name = "FC_NUM_PHONE_TYPE", length = 50)
+    private String phoneType;
 
     @Column(name = "FC_ACC_NO", length = 50)
-    private Long accNo;
-
-    @Column(name = "FC_EMAIL_ID", length = 50)
-    private String emailID;
+    private String accNo;
 
     @Column(name = "FC_CANCELLING_REASON", length = 50)
     private String cancellingReason;
 
-    @Column(name = "FC_ENTERED_DATE")
-    private LocalDateTime enteredDate;
+    @Column(name = "FC_PHONE_NO", length = 50)
+    private Long phoneNo;
 
-    @Column(name = "FC_TRANSACTION_DATE")
+    @Column(name = "FC_SMS")
+    private Boolean forsms;
+
+    @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
     @Column(name = "FC_FROM_DATE")
@@ -45,6 +46,7 @@ public class EmailDetails {
     private LocalDateTime toDate;
 
     //private String status;
+    //private Branch branch;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "FC_ENTERED_BY")
