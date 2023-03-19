@@ -1,8 +1,6 @@
 package com.maintec.fincore.controller;
 
-import com.maintec.fincore.model.CompanyIDGenerationRequestModel;
-import com.maintec.fincore.model.CompanyIDGenerationResponseModel;
-import com.maintec.fincore.model.ResponseModel;
+import com.maintec.fincore.model.*;
 import com.maintec.fincore.service.IDGenerationService;
 import com.maintec.fincore.util.TokenUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +9,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,55 +22,57 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(
-   origins = {"http://localhost:8080", "http://localhost"}
-)
+@CrossOrigin(origins = {"http://localhost:8080", "http://localhost"})
 @RestController
 @RequestMapping({"/id"})
-@Tag(
-   name = "Approval",
-   description = "Approval API"
-)
+@Tag(name = "Approval", description = "Approval API")
+@Slf4j
 public class IDGenerationController {
-   private static final Logger log = LoggerFactory.getLogger(IDGenerationController.class);
    @Autowired
    private IDGenerationService idGenerationService;
 
-   @PostMapping(
-      value = {"/company/save"},
-      produces = {"application/json"}
-   )
-   @Operation(
-      summary = "firstApprove",
-      description = "Show ",
-      tags = {"Approval"}
-   )
-   @ApiResponses({@ApiResponse(
-   responseCode = "200",
-   description = "Successful Operation",
-   content = {@Content(
-   schema = @Schema(
-   implementation = ResponseModel.class
-)
-)}
-), @ApiResponse(
-   responseCode = "204",
-   description = "No Data Found",
-   content = {@Content(
-   schema = @Schema(
-   implementation = Void.class
-)
-)}
-)})
+   @PostMapping(value = "/company/save", produces = MediaType.APPLICATION_JSON_VALUE)
+   @Operation(summary = "Company ID Generation", description = "Saves Company Details and Generates ID", tags = {"IDGeneration"})
+   @ApiResponses({
+           @ApiResponse(responseCode = "200", description = "successful operation",
+                   content = @Content(schema = @Schema(implementation = ResponseModel.class))),
+           @ApiResponse(responseCode = "400", description = "Invalid input")
+   })
    public ResponseModel companySave(@RequestHeader("token") String token, @RequestBody CompanyIDGenerationRequestModel companyIDGenerationRequestModel) {
-      String userId = TokenUtils.getUserId(token);
       ResponseModel responseModel = new ResponseModel();
-      CompanyIDGenerationResponseModel companyIDGenerationResponseModel = this.idGenerationService.companySave(companyIDGenerationRequestModel);
+      companyIDGenerationRequestModel.setUserId(TokenUtils.getUserId(token));
+      CompanyIDGenerationResponseModel companyIDGenerationResponseModel = this.idGenerationService.save(companyIDGenerationRequestModel);
       if (companyIDGenerationResponseModel != null) {
          responseModel.setData(companyIDGenerationResponseModel);
          responseModel.setStatus("SUCCESS");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
+         responseModel.setData(companyIDGenerationRequestModel);
+         responseModel.setStatus("FAILURE");
+         responseModel.setMessage("No Pending Item Found");
+         responseModel.setStatusCode(HttpStatus.OK.value());
+      }
+
+      return responseModel;
+   }
+
+   @PostMapping(value = "/personal/save", produces = MediaType.APPLICATION_JSON_VALUE)
+   @Operation(summary = "Personal ID Generation", description = "Saves Personal Details and Generates ID", tags = {"IDGeneration"})
+   @ApiResponses({
+           @ApiResponse(responseCode = "200", description = "successful operation",
+                   content = @Content(schema = @Schema(implementation = ResponseModel.class))),
+           @ApiResponse(responseCode = "400", description = "Invalid input")
+   })
+   public ResponseModel companySave(@RequestHeader("token") String token, @RequestBody PersonalIDGenerationRequestModel personalIDGenerationRequestModel) {
+      ResponseModel responseModel = new ResponseModel();
+      personalIDGenerationRequestModel.setUserId(TokenUtils.getUserId(token));
+      PersonalIDGenerationResponseModel personalIDGenerationResponseModel = this.idGenerationService.save(personalIDGenerationRequestModel);
+      if(personalIDGenerationResponseModel != null) {
+         responseModel.setData(personalIDGenerationResponseModel);
+         responseModel.setStatus("SUCCESS");
+         responseModel.setStatusCode(HttpStatus.OK.value());
+      } else {
+         responseModel.setData(personalIDGenerationRequestModel);
          responseModel.setStatus("FAILURE");
          responseModel.setMessage("No Pending Item Found");
          responseModel.setStatusCode(HttpStatus.OK.value());
