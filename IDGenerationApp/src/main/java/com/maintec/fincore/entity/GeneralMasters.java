@@ -1,11 +1,13 @@
 package com.maintec.fincore.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "GENERAL_MASTERS", schema = "public")
+@Data
 public class GeneralMasters {
 
     @Id

@@ -1,9 +1,11 @@
 package com.maintec.fincore;
 
 import com.maintec.fincore.entity.Branch;
+import com.maintec.fincore.entity.GeneralMasters;
 import com.maintec.fincore.entity.ID;
 import com.maintec.fincore.entity.User;
 import com.maintec.fincore.repository.BranchRepository;
+import com.maintec.fincore.repository.GeneralMastersRepository;
 import com.maintec.fincore.repository.IDRepository;
 import com.maintec.fincore.repository.UserRepository;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -25,11 +27,13 @@ import org.springframework.context.annotation.Bean;
 )
 public class IDGenerationApp {
    @Autowired
-   private IDRepository idRepository;
+   private GeneralMastersRepository generalMastersRepository;
    @Autowired
    private BranchRepository branchRepository;
    @Autowired
    private UserRepository userRepository;
+
+
 
    public static void main(String[] args) {
       SpringApplication.run(IDGenerationApp.class, args);
@@ -43,12 +47,10 @@ public class IDGenerationApp {
          User user = new User();
          user.setBranch(branch);
          this.userRepository.save(user);
-         ID id = new ID();
-         id.setBranch(branch);
-         id.setEnteredBy(user);
-         id.setCreationDate(LocalDate.now());
-         id.setEnteredDate(LocalDate.now());
-         this.idRepository.save(id);
+         GeneralMasters generalMasters = new GeneralMasters();
+         generalMasters.setDescription("Institution");
+         generalMasters.setMasterType("Firm");
+         generalMastersRepository.save(generalMasters);
       };
    }
 }

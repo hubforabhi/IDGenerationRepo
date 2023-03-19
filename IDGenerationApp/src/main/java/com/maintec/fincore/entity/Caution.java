@@ -13,10 +13,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import lombok.Data;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "CAUTION", schema = "public")
+@Data
 public class Caution {
    @Id
    @Column(

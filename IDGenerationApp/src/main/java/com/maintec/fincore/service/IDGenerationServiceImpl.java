@@ -211,7 +211,6 @@ public class IDGenerationServiceImpl implements IDGenerationService {
          address = new Address(); // Save
          address.setEnteredBy(user);
          //address.setBranch(user.getBranch());
-         address.setEnteredDate(LocalDate.now());
          //ObjectPropertyEditor.editFields(form,PersonalDetailsForm.class,FIELDS_TO_UPPER_CASE,"email","webSite");
          address.setAddressType(personalIDGenerationRequestModel.getAddressType());
          if (personalIDGenerationRequestModel.getCrossNo() != null && personalIDGenerationRequestModel.getCrossNo().trim() != "")
@@ -242,6 +241,10 @@ public class IDGenerationServiceImpl implements IDGenerationService {
             address.setState(personalIDGenerationRequestModel.getState().trim());
          address.setCommunication(personalIDGenerationRequestModel.isAddressCommunication());
          address.setFromDate(LocalDate.now());
+         address.setEnteredDate(LocalDate.now());
+         if(personalIDGenerationRequestModel.getToDate()!=null && !"".equals(personalIDGenerationRequestModel.getToDate()))
+            address.setToDate(LocalDate.parse(personalIDGenerationRequestModel.getToDate(), businessDateFormatter));
+
       }
       return address;
    };
@@ -352,11 +355,12 @@ public class IDGenerationServiceImpl implements IDGenerationService {
 
       id.setPersonal(true);
       id.setPersonalDetails(customer);
-      id.setQuick( false );
+      id.setQuick(false);
       id.setCompleted(false);
       id.setEnteredBy(user);
       id.setBranch(user.getBranch());
       id.setEnteredDate(LocalDate.now());
+      id.setCreationDate(LocalDate.now());
       id.setExpired(false);
       id.setIncome(
               personalIDGenerationRequestModel.getIncome() != null ?
