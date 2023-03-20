@@ -13,30 +13,17 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(
-   name = "USER_TABLE"
-)
+@Table(name = "USER_TABLE")
 @Data
 public class User {
+
    @Id
-   @Column(
-      name = "FC_USER_ID"
-   )
-   @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "USER_SEQUENCER"
-   )
-   @SequenceGenerator(
-      name = "USER_SEQUENCER",
-      sequenceName = "USER_SEQUENCER"
-   )
+   @Column(name = "FC_USER_ID")
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQUENCER")
+   @SequenceGenerator(name = "USER_SEQUENCER", sequenceName = "USER_SEQUENCER")
    private Long id;
-   @ManyToOne(
-      fetch = FetchType.LAZY,
-      optional = false
-   )
-   @JoinColumn(
-      name = "FC_BRANCH"
-   )
+
+   @ManyToOne(fetch = FetchType.LAZY, optional = false)
+   @JoinColumn(name = "FC_BRANCH")
    private Branch branch;
 }
