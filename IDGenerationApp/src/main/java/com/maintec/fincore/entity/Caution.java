@@ -21,50 +21,33 @@ import java.time.LocalDate;
 @Table(name = "CAUTION", schema = "public")
 @Data
 public class Caution {
+
    @Id
-   @Column(
-      name = "ID"
-   )
-   @GeneratedValue(
-      strategy = GenerationType.SEQUENCE,
-      generator = "caution_counter"
-   )
-   @SequenceGenerator(
-      name = "caution_counter",
-      sequenceName = "caution_counter"
-   )
+   @Column(name = "ID")
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caution_counter")
+   @SequenceGenerator(name = "caution_counter", sequenceName = "caution_counter")
    private Long id;
-   @ManyToOne(
-      fetch = FetchType.LAZY,
-      optional = false
-   )
-   @JoinColumn(
-      name = "accountID"
-   )
+
+   @ManyToOne(fetch = FetchType.LAZY, optional = false)
+   @JoinColumn(name = "accountID")
    private ID parentID;
-   @Column(
-      name = "FC_CAUTION_DESC"
-   )
+
+   @Column(name = "FC_CAUTION_DESC")
    private String cautionDesc;
-   @Column(
-      name = "FC_RELEASE_DATE"
-   )
+
+   @Column(name = "FC_RELEASE_DATE")
    private LocalDate releaseDate;
-   @Column(
-      name = "FC_RELEASE_REASON"
-   )
+
+   @Column(name = "FC_RELEASE_REASON")
    private String releaseReson;
-   @Column(
-      name = "FC_ENTERED_DATE"
-   )
+
+   @Column(name = "FC_ENTERED_DATE")
    private LocalDate enteredDate;
-   @Column(
-      name = "FC_RELEASE_BY"
-   )
+
+   @Column(name = "FC_RELEASE_BY")
    private Long releasedBy;
-   @Column(
-      name = "FC_COMPLETED"
-   )
+
+   @Column(name = "FC_COMPLETED")
    private boolean completed;
 
    @Embedded
