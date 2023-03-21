@@ -6,6 +6,8 @@ import com.maintec.fincore.model.SaveSignatureResponseModel;
 import com.maintec.fincore.model.ViewSignatureResponseModel;
 import com.maintec.fincore.service.SignatureService;
 import com.maintec.fincore.util.ResponseStatus;
+import com.maintec.fincore.util.TokenUtils;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,17 +29,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin(
-   origins = {"http://localhost:8080", "http://localhost"}
-)
+@CrossOrigin(origins = {"http://localhost:8080", "http://localhost"})
 @RestController
 @RequestMapping({"/signature"})
-@Tag(
-   name = "Signature",
-   description = "Signature API"
-)
+@Tag(name = "Signature", description = "Signature API")
 public class SignatureController {
+
    private static final Logger log = LoggerFactory.getLogger(SignatureController.class);
+
    @Autowired
    private SignatureService signatureService;
 
@@ -112,15 +111,11 @@ public class SignatureController {
 )
 )}
 )})
-   public ResponseModel save(
-      @RequestHeader("token") String token,
-      @RequestParam("searchIdNo") String searchIdNo,
-      @RequestParam("name") String name,
-      @RequestParam("type") String type,
-      @RequestParam("file") MultipartFile file
-   ) {
+   public ResponseModel save(@RequestHeader("token") String token, @RequestParam("searchIdNo") String searchIdNo,
+                             @RequestParam("name") String name, @RequestParam("type") String type, @RequestParam("file") MultipartFile file) {
       ResponseModel responseModel = new ResponseModel();
       SaveSignatureRequestModel saveSignatureRequestModel = new SaveSignatureRequestModel();
+       saveSignatureRequestModel.setUserId(TokenUtils.getUserId(token));
       saveSignatureRequestModel.setSearchIdNo(searchIdNo);
       saveSignatureRequestModel.setType(type);
       saveSignatureRequestModel.setName(name);
