@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.maintec.fincore.IDGenerationConstants.FAILURE;
+import static com.maintec.fincore.IDGenerationConstants.SUCCESS;
+
 @CrossOrigin(origins = {"http://localhost:4200", "http://localhost"})
 @RestController
 @RequestMapping({"/id"})
@@ -44,13 +47,13 @@ public class IDGenerationController {
       CompanyIDGenerationResponseModel companyIDGenerationResponseModel = this.idGenerationService.save(companyIDGenerationRequestModel);
       if (companyIDGenerationResponseModel != null) {
          responseModel.setData(companyIDGenerationResponseModel);
-         responseModel.setStatus("SUCCESS");
+         responseModel.setStatus(SUCCESS);
          responseModel.setMessage("Company information has Successfully Saved, ID : " + companyIDGenerationResponseModel.getId() +
                   " ,Firm Name : "+ companyIDGenerationRequestModel.getFirmName() + " ,Pending for Approval");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
          responseModel.setData(companyIDGenerationRequestModel);
-         responseModel.setStatus("FAILURE");
+         responseModel.setStatus(FAILURE);
          responseModel.setMessage("Please try after some time");
          responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
       }
@@ -71,13 +74,13 @@ public class IDGenerationController {
       PersonalIDGenerationResponseModel personalIDGenerationResponseModel = this.idGenerationService.save(personalIDGenerationRequestModel);
       if(personalIDGenerationResponseModel != null) {
          responseModel.setData(personalIDGenerationResponseModel);
-         responseModel.setStatus("SUCCESS");
+         responseModel.setStatus(SUCCESS);
          responseModel.setMessage("Personal information has Successfully Saved, ID : " + personalIDGenerationResponseModel.getId() +
                  " ,Customer : "+ personalIDGenerationRequestModel.getCustomerFName() + " ,Pending for Approval");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
          responseModel.setData(personalIDGenerationRequestModel);
-         responseModel.setStatus("FAILURE");
+         responseModel.setStatus(FAILURE);
          responseModel.setMessage("Please try after some time");
          responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
       }

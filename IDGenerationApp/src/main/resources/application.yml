@@ -33,6 +33,11 @@ springdoc:
   swagger-ui:
     path: /swagger-ui
 
+signature:
+  image:
+    location: /Users/abhibhowmick/Documents
+    type: jpg,jpeg,png,gif
+
 logging:
   level:
     org:

@@ -28,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.maintec.fincore.IDGenerationConstants.FAILURE;
+import static com.maintec.fincore.IDGenerationConstants.SUCCESS;
+
 @CrossOrigin(
    origins = {"http://localhost:4200", "http://localhost"}
 )
@@ -74,11 +77,11 @@ public class CautionController {
       if (searchCautionResponseModels != null && !searchCautionResponseModels.isEmpty()) {
          responseModel.setData(searchCautionResponseModels);
          responseModel.setMessage(id + " found successfully");
-         responseModel.setStatus("SUCCESS");
+         responseModel.setStatus(SUCCESS);
       } else {
          responseModel.setData(id);
          responseModel.setMessage(id + " not found");
-         responseModel.setStatus("FAILURE");
+         responseModel.setStatus(FAILURE);
       }
 
       responseModel.setStatusCode(HttpStatus.OK.value());
@@ -118,10 +121,10 @@ public class CautionController {
       if (saveCautionResponseModel != null) {
          responseModel.setData(saveCautionResponseModel);
          responseModel.setMessage("Saved successfully");
-         responseModel.setStatus("SUCCESS");
+         responseModel.setStatus(SUCCESS);
       } else {
          responseModel.setMessage("Not Found");
-         responseModel.setStatus("FAILURE");
+         responseModel.setStatus(FAILURE);
       }
 
       responseModel.setStatusCode(HttpStatus.OK.value());
@@ -162,10 +165,10 @@ public class CautionController {
       if (releaseCautionResponseModel != null) {
          responseModel.setData(releaseCautionResponseModel);
          responseModel.setMessage("Released successfully");
-         responseModel.setStatus("SUCCESS");
+         responseModel.setStatus(SUCCESS);
       } else {
          responseModel.setMessage("Not Found");
-         responseModel.setStatus("FAILURE");
+         responseModel.setStatus(FAILURE);
       }
 
       responseModel.setStatusCode(HttpStatus.OK.value());
