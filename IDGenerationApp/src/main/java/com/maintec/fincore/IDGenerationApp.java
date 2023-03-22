@@ -51,14 +51,14 @@ public class IDGenerationApp {
          User user = new User();
          user.setBranch(branch);
          this.userRepository.save(user);
-         GeneralMasters generalMasters = new GeneralMasters();
-         generalMasters.setDescription("Institution");
-         generalMasters.setMasterType("Firm");
-         generalMastersRepository.save(generalMasters);
+         //GeneralMasters generalMasters = new GeneralMasters();
+         //generalMasters.setDescription("Institution");
+         //generalMasters.setMasterType("Firm");
+         //generalMastersRepository.save(generalMasters);
       };
    }
 
-   //@Bean
+   @Bean
    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
       ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
       resourceDatabasePopulator.addScript(new ClassPathResource("/data.sql.bak"));

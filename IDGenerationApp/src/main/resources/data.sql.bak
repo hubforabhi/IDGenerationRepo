@@ -1,104 +1,102 @@
-insert into general_masters (
-    fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason
-) values(NULL,'DAUGHTER IN LAW','RELATIONSHIPS',NULL),
-(NULL,'GRAND SON','RELATIONSHIPS',NULL),
-(NULL,'DAUGHTER','RELATIONSHIPS',NULL),
-(NULL,'SON','RELATIONSHIPS',NULL),
-(NULL,'HUSBAND','RELATIONSHIPS',NULL),
-(NULL,'WIFE','RELATIONSHIPS',NULL),
-(NULL,'Non-A/c Holder','CHARGESFORHOLDERS',NULL),
-(NULL,'A/c Holder[Firm]','CHARGESFORHOLDERS',NULL),
-(NULL,'A/c Holder[Individual]','CHARGESFORHOLDERS',NULL),
-(NULL,'Central Govt. Employee','PROFESSION',NULL),
-(NULL,'State Govt. Employee','PROFESSION',NULL),
-(NULL,'Factory Employee','PROFESSION',NULL),
-(NULL,'Businessman','PROFESSION',NULL),
-(NULL,'Lawyer','PROFESSION',NULL),
-(NULL,'Doctor','PROFESSION',NULL),
-(NULL,'Bangalore','TALUK',NULL),
-(NULL,'East Bangalore','TOWN',NULL),
-(NULL,'South Bangalore','TOWN',NULL),
-(NULL,'Bangalore','CITY',NULL),
-(NULL,'Bangalore Urban','DISTRICT',NULL),
-(NULL,'Karanataka','STATE',NULL),
-(NULL,'INDIA','COUNTRY',NULL),
-(NULL,'Regular','INDIVIDUAL',NULL),
-(NULL,'VIP','INDIVIDUAL',NULL),
-(NULL,'Institution','FIRM',NULL),
-(NULL,'Bank','FIRM',NULL),
-(NULL,'Society','FIRM',NULL),
-(NULL,'Club','FIRM',NULL),
-(NULL,'Trust','FIRM',NULL),
-(NULL,'Company','FIRM',NULL),
-(NULL,'Lame','HANDICAPPED',NULL),
-(NULL,'Dumb','HANDICAPPED',NULL),
-(NULL,'Deaf','HANDICAPPED',NULL),
-(NULL,'Blind','HANDICAPPED',NULL),
-(NULL,'NA','HANDICAPPED',NULL),
-(NULL,'General','CAST',NULL),
-(NULL,'Shudra','CAST',NULL),
-(NULL,'Kshatriya','CAST',NULL),
-(NULL,'Vaisya','CAST',NULL),
-(NULL,'Brahmin','CAST',NULL),
-(NULL,'Corrpondence',',ADDRESS TYPE',NULL),
-(NULL,'Office',',ADDRESS TYPE',NULL),
-(NULL,'Residence','ADDRESS TYPE',NULL),
-(NULL,'O negative','BLOOD GROUP',NULL),
-(NULL,'O positive','BLOOD GROUP',NULL),
-(NULL,'B negative','BLOOD GROUP',NULL),
-(NULL,'B positive','BLOOD GROUP',NULL),
-(NULL,'AB positive,'BLOOD GROUP',NULL),
-(NULL,'Indian','NATIONALITY',NULL),
-(NULL,'Nominal','MEMBER TYPE',NULL),
-(NULL,'Associate','MEMBER TYPE',NULL),
-(NULL,'Regular','MEMBER TYPE',NULL),
-(NULL,'Zudaism','RELIGION',NULL),
-(NULL,'Zoroastrians','RELIGION',NULL),
-(NULL,'Jains','RELIGION',NULL),
-(NULL,'Buddhist','RELIGION',NULL),
-(NULL,'Sikh','RELIGION',NULL),
-(NULL,'Christian','RELIGION',NULL),
-(NULL,'Muslim','RELIGION',NULL),
-(NULL,'Hindu','RELIGION',NULL),
-(NULL,'Hindi','SIGN LANGUAGE',NULL),
-(NULL,'English','SIGN LANGUAGE',NULL),
-(NULL,'Kannada','SIGN LANGUAGE',NULL),
-(NULL,'Water Connection Bill','ID PROOF',NULL),
-(NULL,'Gas Connection Bill','ID PROOF',NULL),
-(NULL,'Electricity Connection Bill','ID PROOF',NULL),
-(NULL,'Ration Card','ID PROOF',NULL),
-(NULL,'Telephone Connection Bill','ID PROOF',NULL),
-(NULL,'Aadhaar Card','ID PROOF',NULL),
-(NULL,'Voters ID Card','ID PROOF',NULL),
-(NULL,'Driving License','ID PROOF',NULL),
-(NULL,'Passport','ID PROOF',NULL),
-(NULL,'Professor','SALUTATION',NULL),
-(NULL,'Doctor','SALUTATION',NULL),
-(NULL,'Baby','SALUTATION',NULL),
-(NULL,'Miss','SALUTATION',NULL),
-(NULL,'Master','SALUTATION',NULL),
-(NULL,'Mrs','SALUTATION',NULL),
-(NULL,'Mr','SALUTATION',NULL),
-(NULL,'Others','QUALIFICATION',NULL),
-(NULL,'Post Graduate','QUALIFICATION',NULL),
-(NULL,'Graduate','QUALIFICATION',NULL),
-(NULL,'SSLC','QUALIFICATION',NULL),
-(NULL,'COURT ASSIGNED','GUARDIAN-TYPES',NULL),
-(NULL,'NATURAL','GUARDIAN-TYPES',NULL),
-(NULL,'Friend','RELATIONSHIPS',NULL),
-(NULL,'Cousine','RELATIONSHIPS',NULL),
-(NULL,'Sister','RELATIONSHIPS',NULL),
-(NULL,'Brother','RELATIONSHIPS',NULL),
-(NULL,'Mother','RELATIONSHIPS',NULL),
-(NULL,'Father','RELATIONSHIPS',NULL),
-(NULL,'Family Friend','RELATIONSHIPS',NULL),
-(NULL,'Relative','RELATIONSHIPS',NULL),
-(NULL,'Mother','RELATIONSHIPS',NULL),
-(NULL,'Father','RELATIONSHIPS',NULL),
-(NULL,'Politicians','ACCOUNT CLASS',NULL),
-(NULL,'Businessmen','ACCOUNT CLASS',NULL),
-(NULL,'Salaried','ACCOUNT CLASS',NULL),
-(NULL,'Senior Citizen','ACCOUNT CLASS',NULL),
-(NULL,'Regular','ACCOUNT CLASS',NULL),
-(NULL,'Politician','ACCOUNT CLASS',NULL),
-(NULL,'VIP Customer','EXCEPTION MASTER',NULL)
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(1,NULL,'DAUGHTER IN LAW','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(2,NULL,'GRAND SON','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(3,NULL,'DAUGHTER','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(4,NULL,'SON','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(5,NULL,'HUSBAND','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(6,NULL,'WIFE','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(7,NULL,'Non-A/c Holder','CHARGESFORHOLDERS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(8,NULL,'A/c Holder[Firm]','CHARGESFORHOLDERS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(9,NULL,'A/c Holder[Individual]','CHARGESFORHOLDERS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(10,NULL,'Central Govt. Employee','PROFESSION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(11,NULL,'State Govt. Employee','PROFESSION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(12,NULL,'Factory Employee','PROFESSION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(13,NULL,'Businessman','PROFESSION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(14,NULL,'Lawyer','PROFESSION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(15,NULL,'Doctor','PROFESSION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(16,NULL,'Bangalore','TALUK',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(17,NULL,'East Bangalore','TOWN',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(18,NULL,'South Bangalore','TOWN',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(19,NULL,'Bangalore','CITY',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(20,NULL,'Bangalore Urban','DISTRICT',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(21,NULL,'Karanataka','STATE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(22,NULL,'INDIA','COUNTRY',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(23,NULL,'Regular','INDIVIDUAL',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(24,NULL,'VIP','INDIVIDUAL',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(25,NULL,'Institution','FIRM',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(26,NULL,'Bank','FIRM',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(27,NULL,'Society','FIRM',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(28,NULL,'Club','FIRM',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(29,NULL,'Trust','FIRM',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(30,NULL,'Company','FIRM',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(31,NULL,'Lame','HANDICAPPED',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(32,NULL,'Dumb','HANDICAPPED',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(33,NULL,'Deaf','HANDICAPPED',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(34,NULL,'Blind','HANDICAPPED',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(35,NULL,'NA','HANDICAPPED',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(36,NULL,'General','CAST',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(37,NULL,'Shudra','CAST',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(38,NULL,'Kshatriya','CAST',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(39,NULL,'Vaisya','CAST',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(40,NULL,'Brahmin','CAST',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(41,NULL,'Corrpondence',',ADDRESS TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(42,NULL,'Office',',ADDRESS TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(43,NULL,'Residence','ADDRESS TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(44,NULL,'O negative','BLOOD GROUP',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(45,NULL,'O positive','BLOOD GROUP',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(46,NULL,'B negative','BLOOD GROUP',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(47,NULL,'B positive','BLOOD GROUP',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(48,NULL,'AB positive','BLOOD GROUP',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(49,NULL,'Indian','NATIONALITY',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(50,NULL,'Nominal','MEMBER TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(51,NULL,'Associate','MEMBER TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(52,NULL,'Regular','MEMBER TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(53,NULL,'Zudaism','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(54,NULL,'Zoroastrians','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(55,NULL,'Jains','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(56,NULL,'Buddhist','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(57,NULL,'Sikh','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(58,NULL,'Christian','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(59,NULL,'Muslim','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(60,NULL,'Hindu','RELIGION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(61,NULL,'Hindi','SIGN LANGUAGE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(62,NULL,'English','SIGN LANGUAGE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(63,NULL,'Kannada','SIGN LANGUAGE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(64,NULL,'Water Connection Bill','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(65,NULL,'Gas Connection Bill','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(66,NULL,'Electricity Connection Bill','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(67,NULL,'Ration Card','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(68,NULL,'Telephone Connection Bill','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(69,NULL,'Aadhaar Card','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(70,NULL,'Voters ID Card','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(71,NULL,'Driving License','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(72,NULL,'Passport','ID PROOF',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(73,NULL,'Professor','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(74,NULL,'Doctor','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(75,NULL,'Baby','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(76,NULL,'Miss','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(77,NULL,'Master','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(78,NULL,'Mrs','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(79,NULL,'Mr','SALUTATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(80,NULL,'Others','QUALIFICATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(81,NULL,'Post Graduate','QUALIFICATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(82,NULL,'Graduate','QUALIFICATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(83,NULL,'SSLC','QUALIFICATION',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(84,NULL,'COURT ASSIGNED','GUARDIAN-TYPES',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(85,NULL,'NATURAL','GUARDIAN-TYPES',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(86,NULL,'Friend','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(87,NULL,'Cousine','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(88,NULL,'Sister','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(89,NULL,'Brother','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(90,NULL,'Mother','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(91,NULL,'Father','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(92,NULL,'Family Friend','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(93,NULL,'Relative','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(94,NULL,'Mother','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(95,NULL,'Father','RELATIONSHIPS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(96,NULL,'Politicians','ACCOUNT CLASS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(97,NULL,'Businessmen','ACCOUNT CLASS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(98,NULL,'Salaried','ACCOUNT CLASS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(99,NULL,'Senior Citizen','ACCOUNT CLASS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(100,NULL,'Regular','ACCOUNT CLASS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(101,NULL,'Politician','ACCOUNT CLASS',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(102,NULL,'VIP Customer','EXCEPTION MASTER',NULL);
