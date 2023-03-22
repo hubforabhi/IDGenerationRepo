@@ -38,19 +38,21 @@ public class IDGenerationController {
                    content = @Content(schema = @Schema(implementation = ResponseModel.class))),
            @ApiResponse(responseCode = "400", description = "Invalid input")
    })
-   public ResponseModel companySave(@RequestHeader("token") String token, @RequestBody CompanyIDGenerationRequestModel companyIDGenerationRequestModel) {
+   public ResponseModel save(@RequestHeader("token") String token, @RequestBody CompanyIDGenerationRequestModel companyIDGenerationRequestModel) {
       ResponseModel responseModel = new ResponseModel();
       companyIDGenerationRequestModel.setUserId(TokenUtils.getUserId(token));
       CompanyIDGenerationResponseModel companyIDGenerationResponseModel = this.idGenerationService.save(companyIDGenerationRequestModel);
       if (companyIDGenerationResponseModel != null) {
          responseModel.setData(companyIDGenerationResponseModel);
          responseModel.setStatus("SUCCESS");
+         responseModel.setMessage("Company information has Successfully Saved, ID : " + companyIDGenerationResponseModel.getId() +
+                  " ,Firm Name : "+ companyIDGenerationRequestModel.getFirmName() + " ,Pending for Approval");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
          responseModel.setData(companyIDGenerationRequestModel);
          responseModel.setStatus("FAILURE");
-         responseModel.setMessage("No Pending Item Found");
-         responseModel.setStatusCode(HttpStatus.OK.value());
+         responseModel.setMessage("Please try after some time");
+         responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
       }
 
       return responseModel;
@@ -63,19 +65,21 @@ public class IDGenerationController {
                    content = @Content(schema = @Schema(implementation = ResponseModel.class))),
            @ApiResponse(responseCode = "400", description = "Invalid input")
    })
-   public ResponseModel companySave(@RequestHeader("token") String token, @RequestBody PersonalIDGenerationRequestModel personalIDGenerationRequestModel) {
+   public ResponseModel save(@RequestHeader("token") String token, @RequestBody PersonalIDGenerationRequestModel personalIDGenerationRequestModel) {
       ResponseModel responseModel = new ResponseModel();
       personalIDGenerationRequestModel.setUserId(TokenUtils.getUserId(token));
       PersonalIDGenerationResponseModel personalIDGenerationResponseModel = this.idGenerationService.save(personalIDGenerationRequestModel);
       if(personalIDGenerationResponseModel != null) {
          responseModel.setData(personalIDGenerationResponseModel);
          responseModel.setStatus("SUCCESS");
+         responseModel.setMessage("Personal information has Successfully Saved, ID : " + personalIDGenerationResponseModel.getId() +
+                 " ,Customer : "+ personalIDGenerationRequestModel.getCustomerFName() + " ,Pending for Approval");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
          responseModel.setData(personalIDGenerationRequestModel);
          responseModel.setStatus("FAILURE");
-         responseModel.setMessage("No Pending Item Found");
-         responseModel.setStatusCode(HttpStatus.OK.value());
+         responseModel.setMessage("Please try after some time");
+         responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
       }
 
       return responseModel;

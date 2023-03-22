@@ -12,6 +12,7 @@ import com.maintec.fincore.system.constants.ProcessCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 @Service
 @Slf4j
@@ -32,7 +34,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
    private static final DateTimeFormatter businessDateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME;
 
    @Autowired
-   IDRepository idRepository;
+   private IDRepository idRepository;
 
    @Autowired
    private UserRepository userRepository;
@@ -42,7 +44,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
 
    @Override
    public CompanyIDGenerationResponseModel save(CompanyIDGenerationRequestModel companyIDGenerationRequestModel) {
-      CompanyIDGenerationResponseModel companyIDGenerationResponseModel = new CompanyIDGenerationResponseModel();
+      CompanyIDGenerationResponseModel companyIDGenerationResponseModel = companyFrom.apply(companyIDGenerationRequestModel);
       Optional<User> userOptional = userRepository.findById(Long.parseLong(companyIDGenerationRequestModel.getUserId()));
       if(userOptional.isPresent()) {
          Optional<GeneralMasters> generalMastersOptional = generalMastersRepository.findByDescription(companyIDGenerationRequestModel.getConstitutionfirmType());
@@ -58,7 +60,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
 
    @Override
    public PersonalIDGenerationResponseModel save(PersonalIDGenerationRequestModel personalIDGenerationRequestModel) {
-      PersonalIDGenerationResponseModel personalIDGenerationResponseModel = new PersonalIDGenerationResponseModel();
+      PersonalIDGenerationResponseModel personalIDGenerationResponseModel = personalFrom.apply(personalIDGenerationRequestModel);
       Optional<User> userOptional = userRepository.findById(Long.parseLong(personalIDGenerationRequestModel.getUserId()));
       if(userOptional.isPresent()) {
          Optional<GeneralMasters> generalMastersOptional = generalMastersRepository.findByDescription(personalIDGenerationRequestModel.getConstitution());
@@ -369,7 +371,6 @@ public class IDGenerationServiceImpl implements IDGenerationService {
       return id;
    };
 
-
    public TransactionProcess createTXNProcess(String processCode, boolean isExceptional, String entryExceptionalReason) {
       TransactionProcess txnProcess = new TransactionProcess();
 
@@ -395,4 +396,16 @@ public class IDGenerationServiceImpl implements IDGenerationService {
 
       return txnProcess;
    }
+
+    private final Function<CompanyIDGenerationRequestModel, CompanyIDGenerationResponseModel> companyFrom = (companyIDGenerationRequestModel) -> {
+        CompanyIDGenerationResponseModel companyIDGenerationResponseModel = new CompanyIDGenerationResponseModel();
+        BeanUtils.copyProperties(companyIDGenerationRequestModel, companyIDGenerationResponseModel);
+        return companyIDGenerationResponseModel;
+    };
+
+   private final Function<PersonalIDGenerationRequestModel, PersonalIDGenerationResponseModel> personalFrom = (personalIDGenerationRequestModel) -> {
+       PersonalIDGenerationResponseModel personalIDGenerationResponseModel = new PersonalIDGenerationResponseModel();
+       BeanUtils.copyProperties(personalIDGenerationRequestModel, personalIDGenerationResponseModel);
+       return personalIDGenerationResponseModel;
+   };
 }

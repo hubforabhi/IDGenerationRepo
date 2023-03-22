@@ -72,7 +72,9 @@ public class SignatureServiceImpl implements SignatureService {
         if (idOptional.isPresent()) {
             Optional<User> userOptional = userRepository.findById(Long.parseLong(saveSignatureRequestModel.getUserId()));
             if(userOptional.isPresent()) {
-                Images images = signatureRepository.save(saveFromMapper.apply(saveSignatureRequestModel, idOptional.get()));
+                Images images = saveFromMapper.apply(saveSignatureRequestModel, idOptional.get());
+                images.setEnteredBy(userOptional.get());
+                images = signatureRepository.save(images);
                 saveSignatureResponseModel.setId(images.getId());
                 saveSignatureResponseModel.setSearchIdNo(saveSignatureRequestModel.getSearchIdNo());
                 saveSignatureResponseModel.setTitle(images.getTitle());
@@ -108,7 +110,6 @@ public class SignatureServiceImpl implements SignatureService {
         images.setImageType(ImageType.getValue(saveSignatureRequestModel.getType()));
         images.setEnteredDate(LocalDate.now());
         images.setExpiryDate(SIGNATURE_FILE_DEFAULT_EXPIRY_DATE);
-        images.setEnteredBy(Util.getDefaultUser());
         images.setParentID(id);
         images.setBranch(id.getBranch());
         images.setImageURL(LocalDateTime.now().format(SIGNATURE_FILE_PATTERN) + ".jpg");
