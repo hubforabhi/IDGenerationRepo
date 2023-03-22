@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = {"http://localhost:8080", "http://localhost"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"})
 @RestController
 @RequestMapping({"/id"})
-@Tag(name = "Approval", description = "Approval API")
+@Tag(name = "ID Generation", description = "ID Generation API")
 @Slf4j
 public class IDGenerationController {
    @Autowired

@@ -12,10 +12,16 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+
+import javax.sql.DataSource;
 
 @SpringBootApplication
 @OpenAPIDefinition(
@@ -32,8 +38,6 @@ public class IDGenerationApp {
    private BranchRepository branchRepository;
    @Autowired
    private UserRepository userRepository;
-
-
 
    public static void main(String[] args) {
       SpringApplication.run(IDGenerationApp.class, args);
@@ -52,5 +56,15 @@ public class IDGenerationApp {
          generalMasters.setMasterType("Firm");
          generalMastersRepository.save(generalMasters);
       };
+   }
+
+   //@Bean
+   public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
+      ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+      resourceDatabasePopulator.addScript(new ClassPathResource("/data.sql.bak"));
+      DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+      dataSourceInitializer.setDataSource(dataSource);
+      dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+      return dataSourceInitializer;
    }
 }
