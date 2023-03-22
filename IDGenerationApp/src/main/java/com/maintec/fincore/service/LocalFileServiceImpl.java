@@ -1,5 +1,6 @@
 package com.maintec.fincore.service;
 
+import com.maintec.fincore.model.GetSignatureImageRequestModel;
 import com.maintec.fincore.model.SaveSignatureRequestModel;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import static com.maintec.fincore.IDGenerationConstants.FILE_PATH_SEPARATOR;
 @Slf4j
 public class LocalFileServiceImpl implements FileService {
 
-   @Value("${signature:image:location}")
+   @Value("${signature.image.location}")
    private String signatureImageLocation;
 
    @Override
@@ -41,5 +42,23 @@ public class LocalFileServiceImpl implements FileService {
          log.error(getClass().getName(), "LocalFileServiceImpl.save Exception ", e);
       }
       return success;
+   }
+
+   @Override
+   public byte[] getContent(GetSignatureImageRequestModel getSignatureImageRequestModel) {
+      byte[] content = null;
+      String basePath =
+              signatureImageLocation + FILE_PATH_SEPARATOR + getSignatureImageRequestModel.getImageURL();
+
+      Path path = Paths.get(basePath);
+      try {
+         if(Files.exists(path))
+            content = Files.readAllBytes(path);
+      } catch (IOException e) {
+         log.error(getClass().getName(), "LocalFileServiceImpl.save IOException ", e);
+      } catch (Exception e)  {
+         log.error(getClass().getName(), "LocalFileServiceImpl.save Exception ", e);
+      }
+      return content;
    }
 }

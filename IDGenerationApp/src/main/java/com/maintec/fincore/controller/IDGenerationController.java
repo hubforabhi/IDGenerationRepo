@@ -28,7 +28,7 @@ import static com.maintec.fincore.IDGenerationConstants.SUCCESS;
 @CrossOrigin(origins = {"http://localhost:4200", "http://localhost"})
 @RestController
 @RequestMapping({"/id"})
-@Tag(name = "ID Generation", description = "ID Generation API")
+@Tag(name = "IDGeneration", description = "ID Generation API")
 @Slf4j
 public class IDGenerationController {
    @Autowired

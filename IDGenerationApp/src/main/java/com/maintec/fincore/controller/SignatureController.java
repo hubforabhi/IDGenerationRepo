@@ -1,9 +1,6 @@
 package com.maintec.fincore.controller;
 
-import com.maintec.fincore.model.ResponseModel;
-import com.maintec.fincore.model.SaveSignatureRequestModel;
-import com.maintec.fincore.model.SaveSignatureResponseModel;
-import com.maintec.fincore.model.ViewSignatureResponseModel;
+import com.maintec.fincore.model.*;
 import com.maintec.fincore.service.SignatureService;
 import com.maintec.fincore.util.ResponseStatus;
 import com.maintec.fincore.util.TokenUtils;
@@ -15,21 +12,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import static com.maintec.fincore.IDGenerationConstants.FAILURE;
@@ -46,7 +39,7 @@ public class SignatureController {
     @Autowired
     private SignatureService signatureService;
 
-    @GetMapping(value = "/findBySearchIdNo/{searchIdNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/ID/{searchIdNo}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "findBySearchIdNo", description = "Show", tags = {"Signature"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",
@@ -55,7 +48,7 @@ public class SignatureController {
     })
     public ResponseModel findBySearchIdNo(@RequestHeader("token") String token, @PathVariable("searchIdNo") String searchIdNo) {
         ResponseModel responseModel = new ResponseModel();
-        List<ViewSignatureResponseModel> viewSignatureResponseModels = this.signatureService.findByParentID(Long.parseLong(searchIdNo));
+        List<ViewSignatureResponseModel> viewSignatureResponseModels = signatureService.findByParentID(Long.parseLong(searchIdNo));
         if (!viewSignatureResponseModels.isEmpty()) {
             responseModel.setData(viewSignatureResponseModels);
             responseModel.setMessage(viewSignatureResponseModels.size() + " Found Successfully");
@@ -72,7 +65,7 @@ public class SignatureController {
     }
 
     @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "save", description = "Create/Update New Signature", tags = {"Signature"})
+    @Operation(summary = "save", description = "Create New Signature", tags = {"Signature"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(schema = @Schema(implementation = ResponseModel.class))),
@@ -87,7 +80,7 @@ public class SignatureController {
         saveSignatureRequestModel.setType(type);
         saveSignatureRequestModel.setName(name);
         saveSignatureRequestModel.setTheFile(file);
-        SaveSignatureResponseModel saveSignatureResponseModel = this.signatureService.save(saveSignatureRequestModel);
+        SaveSignatureResponseModel saveSignatureResponseModel = signatureService.save(saveSignatureRequestModel);
         if (saveSignatureResponseModel.getResponseStatus() == ResponseStatus.OK) {
             responseModel.setData(saveSignatureResponseModel);
             responseModel.setStatus(SUCCESS);
@@ -98,7 +91,33 @@ public class SignatureController {
             responseModel.setMessage("Image can't be saved, Please try after some time.");
             responseModel.setStatusCode(HttpStatus.OK.value());
         }
+        return responseModel;
+    }
 
+    @GetMapping(value = "/content/{id}")
+    @Operation(summary = "Get Signature Image", description = "Get Image Details", tags = {"Signature"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "successful operation",
+                    content = @Content(schema = @Schema(implementation = ResponseModel.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    public ResponseModel getSignatureImage(@RequestHeader("token") String token, @RequestParam("id") String id) {
+        ResponseModel responseModel = new ResponseModel();
+        GetSignatureImageRequestModel getSignatureImageRequestModel = new GetSignatureImageRequestModel();
+        getSignatureImageRequestModel.setUserId(TokenUtils.getUserId(token));
+        getSignatureImageRequestModel.setId(id);
+
+        GetSignatureResponseModel getSignatureResponseModel = signatureService.getImage(getSignatureImageRequestModel);
+        if (getSignatureResponseModel.getResponseStatus() == ResponseStatus.OK) {
+            responseModel.setData(getSignatureResponseModel);
+            responseModel.setStatus(SUCCESS);
+            responseModel.setMessage(id +" Found Successfully");
+            responseModel.setStatusCode(HttpStatus.OK.value());
+        } else {
+            responseModel.setStatus(FAILURE);
+            responseModel.setMessage(id + " Not Found");
+            responseModel.setStatusCode(HttpStatus.OK.value());
+        }
         return responseModel;
     }
 
