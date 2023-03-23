@@ -10,9 +10,9 @@ import java.time.LocalDate;
 @Data
 public class Company {
     @Id
-    @Column(name = "FC_EMAILDETAILS_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMAIL_SEQUENCER")
-    @SequenceGenerator(name = "EMAIL_SEQUENCER", sequenceName = "EMAIL_SEQUENCER")
+    @Column(name = "FC_COMPANY_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANY_SEQUENCER")
+    @SequenceGenerator(name = "COMPANY_SEQUENCER", sequenceName = "COMPANY_SEQUENCER")
     private Long id;
 
     @Column(name = "FC_FIRM_NAME", length = 25)

@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Enterprise", schema = "public")
+@Table(name = "PROFESSION", schema = "public")
 @Data
 public class Profession {
 
     @Id
-    @Column(name = "FC_ENTERPRISE_ID")
+    @Column(name = "FC_PROFESSION_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFESSION_SEQUENCER")
     @SequenceGenerator(name = "PROFESSION_SEQUENCER", sequenceName = "PROFESSION_SEQUENCER")
     private Long id;

@@ -2,6 +2,8 @@ package com.maintec.fincore.util;
 
 public enum ResponseStatus {
     OK("ok"),
+
+    ID_NOT_FOUND("ID not found"),
     USER_NOT_FOUND("User not found"),
     PARENT_ID_NOT_FOUND("Parent ID not found"),
 

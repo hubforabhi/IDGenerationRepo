@@ -11,13 +11,13 @@ import java.time.LocalDate;
 public class Address {
 
     @Id
-    @Column(name = "FC_EMAILDETAILS_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMAIL_SEQUENCER")
-    @SequenceGenerator(name = "EMAIL_SEQUENCER", sequenceName = "EMAIL_SEQUENCER")
+    @Column(name = "FC_ADDRESS_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_SEQUENCER")
+    @SequenceGenerator(name = "ADDRESS_SEQUENCER", sequenceName = "ADDRESS_SEQUENCER")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "FC_ID_ADDRESS")
     private ID customerId;
 
     @Column(name = "FC_ADD_TYPE", length = 50, nullable = false)

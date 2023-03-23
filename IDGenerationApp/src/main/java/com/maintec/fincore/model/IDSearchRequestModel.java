@@ -5,10 +5,7 @@ import lombok.Data;
 
 @Data
 public class IDSearchRequestModel {
-    private String searchType;
-
-    private String name;
-    private String status;
+    private String id;
 
     @JsonIgnore
     private String userId;

@@ -11,9 +11,9 @@ import java.time.LocalDate;
 public class Customer {
 
     @Id
-    @Column(name = "FC_EMAILDETAILS_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMAIL_SEQUENCER")
-    @SequenceGenerator(name = "EMAIL_SEQUENCER", sequenceName = "EMAIL_SEQUENCER")
+    @Column(name = "FC_CUSTOMER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_SEQUENCER")
+    @SequenceGenerator(name = "CUSTOMER_SEQUENCER", sequenceName = "CUSTOMER_SEQUENCER")
     private Long id;
 
     @Embedded

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Passport {
 
     @Id
-    @Column(name = "FC_ENTERPRISE_ID")
+    @Column(name = "FC_PASSPORT_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PASSPORT_SEQUENCER")
     @SequenceGenerator(name = "PASSPORT_SEQUENCER", sequenceName = "PASSPORT_SEQUENCER")
     private Long id;
