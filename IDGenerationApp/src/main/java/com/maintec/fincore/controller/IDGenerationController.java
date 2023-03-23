@@ -49,7 +49,7 @@ public class IDGenerationController {
          responseModel.setData(companyIDGenerationResponseModel);
          responseModel.setStatus(SUCCESS);
          responseModel.setMessage("Company information has Successfully Saved, ID : " + companyIDGenerationResponseModel.getId() +
-                  " ,Firm Name : "+ companyIDGenerationRequestModel.getFirmName() + " ,Pending for Approval");
+                  ", Firm Name : "+ companyIDGenerationRequestModel.getFirmName() + ", Pending for Approval");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
          responseModel.setData(companyIDGenerationRequestModel);
@@ -76,7 +76,7 @@ public class IDGenerationController {
          responseModel.setData(personalIDGenerationResponseModel);
          responseModel.setStatus(SUCCESS);
          responseModel.setMessage("Personal information has Successfully Saved, ID : " + personalIDGenerationResponseModel.getId() +
-                 " ,Customer : "+ personalIDGenerationRequestModel.getCustomerFName() + " ,Pending for Approval");
+                 ", Customer : "+ personalIDGenerationRequestModel.getCustomerFName() + ", Pending for Approval");
          responseModel.setStatusCode(HttpStatus.OK.value());
       } else {
          responseModel.setData(personalIDGenerationRequestModel);
