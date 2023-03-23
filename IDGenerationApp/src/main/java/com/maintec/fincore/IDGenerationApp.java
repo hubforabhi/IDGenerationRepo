@@ -1,13 +1,7 @@
 package com.maintec.fincore;
 
-import com.maintec.fincore.entity.Branch;
-import com.maintec.fincore.entity.GeneralMasters;
-import com.maintec.fincore.entity.ID;
-import com.maintec.fincore.entity.User;
-import com.maintec.fincore.repository.BranchRepository;
-import com.maintec.fincore.repository.GeneralMastersRepository;
-import com.maintec.fincore.repository.IDRepository;
-import com.maintec.fincore.repository.UserRepository;
+import com.maintec.fincore.entity.*;
+import com.maintec.fincore.repository.*;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import java.time.LocalDate;
@@ -32,10 +26,13 @@ import javax.sql.DataSource;
 )
 )
 public class IDGenerationApp {
-   @Autowired
-   private GeneralMastersRepository generalMastersRepository;
+   //@Autowired
+   //private GeneralMastersRepository generalMastersRepository;
    @Autowired
    private BranchRepository branchRepository;
+
+   @Autowired
+   private BankRepository bankRepository;
    @Autowired
    private UserRepository userRepository;
 
@@ -46,11 +43,17 @@ public class IDGenerationApp {
    @Bean
    public CommandLineRunner commandLineRunner() {
       return args -> {
+         Bank bank = new Bank();
+         bank.setBankId("SimpleBank");
+         bank.setBankMicrCode("SB0012345");
+         bankRepository.save(bank);
          Branch branch = new Branch();
-         this.branchRepository.save(branch);
+         branch.setBranchId("BRANCH001");
+         bank.addBranch(branch);
+         branchRepository.save(branch);
          User user = new User();
          user.setBranch(branch);
-         this.userRepository.save(user);
+         userRepository.save(user);
          //GeneralMasters generalMasters = new GeneralMasters();
          //generalMasters.setDescription("Institution");
          //generalMasters.setMasterType("Firm");
