@@ -68,7 +68,7 @@ public class CautionController {
         return responseModel;
     }
 
-    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "save", description = "Create a new Caution", tags = {"Caution"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",
@@ -93,7 +93,7 @@ public class CautionController {
         return responseModel;
     }
 
-    @PostMapping(value = "/release", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/release", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "release", description = "Release an existing Caution", tags = {"Caution"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",

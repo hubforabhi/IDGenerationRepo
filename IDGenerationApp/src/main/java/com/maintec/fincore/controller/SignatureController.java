@@ -90,7 +90,7 @@ public class SignatureController {
         return responseModel;
     }
 
-    @GetMapping(value = "/content/{id}")
+    @GetMapping(value = "/content/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get Signature Image", description = "Get Image Details", tags = {"Signature"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",
@@ -118,7 +118,7 @@ public class SignatureController {
         return responseModel;
     }
 
-    @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "delete", description = "Expire an existing signature", tags = {"Signature"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",
