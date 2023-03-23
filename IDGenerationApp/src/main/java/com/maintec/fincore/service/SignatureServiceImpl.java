@@ -51,13 +51,17 @@ public class SignatureServiceImpl implements SignatureService {
     @Override
     public List<ViewSignatureResponseModel> findByParentID(long parentID) {
         List<ViewSignatureResponseModel> viewSignatureResponseModels = new ArrayList<>();
-        Optional<ID> idOptional = this.idRepository.findById(parentID);
+        Optional<ID> idOptional = idRepository.findById(parentID);
         if (idOptional.isPresent()) {
-            List<Images> images = this.signatureRepository.findByParentID(idOptional.get());
+            List<Images> images = signatureRepository.findByParentID(idOptional.get());
             if (images != null && !images.isEmpty()) {
                 viewSignatureResponseModels = images.stream().map(findMapper).peek(viewSignatureResponseModel -> {
                     viewSignatureResponseModel.setSearchIdNo(String.valueOf(parentID));
                 }).collect(Collectors.toList());
+            } else {
+                ViewSignatureResponseModel viewSignatureResponseModel = new ViewSignatureResponseModel();
+                viewSignatureResponseModel.setResponseStatus(ResponseStatus.SIGNATURE_NOT_FOUND);
+                viewSignatureResponseModels.add(viewSignatureResponseModel);
             }
         } else {
             ViewSignatureResponseModel viewSignatureResponseModel = new ViewSignatureResponseModel();
@@ -72,7 +76,7 @@ public class SignatureServiceImpl implements SignatureService {
         SaveSignatureResponseModel saveSignatureResponseModel = new SaveSignatureResponseModel();
         if(Arrays.asList(allowedImageTypes).stream().anyMatch(
                 type -> saveSignatureRequestModel.getTheFile().getContentType().contains(type))) {
-            Optional<ID> idOptional = idRepository.findById(Long.parseLong(saveSignatureRequestModel.getSearchIdNo()));
+            Optional<ID> idOptional = idRepository.findById(Long.parseLong(saveSignatureRequestModel.getParentID()));
             if (idOptional.isPresent()) {
                 Optional<User> userOptional = userRepository.findById(Long.parseLong(saveSignatureRequestModel.getUserId()));
                 if (userOptional.isPresent()) {
@@ -82,7 +86,7 @@ public class SignatureServiceImpl implements SignatureService {
                         images.setEnteredBy(userOptional.get());
                         images = signatureRepository.save(images);
                         saveSignatureResponseModel.setId(images.getId());
-                        saveSignatureResponseModel.setSearchIdNo(saveSignatureRequestModel.getSearchIdNo());
+                        saveSignatureResponseModel.setSearchIdNo(saveSignatureRequestModel.getParentID());
                         saveSignatureResponseModel.setTitle(images.getTitle());
                         saveSignatureResponseModel.setType(images.getImageType());
                         saveSignatureResponseModel.setResponseStatus(ResponseStatus.OK);
@@ -96,7 +100,7 @@ public class SignatureServiceImpl implements SignatureService {
                 saveSignatureResponseModel.setResponseStatus(ResponseStatus.PARENT_ID_NOT_FOUND);
             }
         } else {
-            saveSignatureResponseModel.setResponseStatus(ResponseStatus.IMAGE_TYPE_NOT_SUPPORTED);
+            saveSignatureResponseModel.setResponseStatus(ResponseStatus.SIGNATURE_IMAGE_TYPE_NOT_SUPPORTED);
         }
 
         return saveSignatureResponseModel;
@@ -113,10 +117,10 @@ public class SignatureServiceImpl implements SignatureService {
                 getSignatureResponseModel.setContent(content);
                 getSignatureResponseModel.setResponseStatus(ResponseStatus.OK);
             } else {
-                getSignatureResponseModel.setResponseStatus(ResponseStatus.IMAGE_NOT_FOUND);
+                getSignatureResponseModel.setResponseStatus(ResponseStatus.SIGNATURE_NOT_FOUND);
             }
         } else {
-            getSignatureResponseModel.setResponseStatus(ResponseStatus.IMAGE_NOT_FOUND);
+            getSignatureResponseModel.setResponseStatus(ResponseStatus.SIGNATURE_NOT_FOUND);
         }
         return getSignatureResponseModel;
     }

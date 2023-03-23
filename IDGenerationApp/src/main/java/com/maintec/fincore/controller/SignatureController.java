@@ -34,25 +34,25 @@ public class SignatureController {
     @Autowired
     private SignatureService signatureService;
 
-    @GetMapping(value = "/ID/{searchIdNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "findBySearchIdNo", description = "Show", tags = {"Signature"})
+    @GetMapping(value = "/ID/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "findByParentID", description = "Show", tags = {"Signature"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(schema = @Schema(implementation = ResponseModel.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
-    public ResponseModel findBySearchIdNo(@RequestHeader("token") String token, @PathVariable("searchIdNo") String searchIdNo) {
+    public ResponseModel findByParentID(@RequestHeader("token") String token, @PathVariable("id") String id) {
         ResponseModel responseModel = new ResponseModel();
-        List<ViewSignatureResponseModel> viewSignatureResponseModels = signatureService.findByParentID(Long.parseLong(searchIdNo));
-        if (!viewSignatureResponseModels.isEmpty()) {
-            responseModel.setData(viewSignatureResponseModels);
-            responseModel.setMessage(viewSignatureResponseModels.size() + " Found Successfully");
-            responseModel.setStatus(SUCCESS);
-            responseModel.setStatusCode(HttpStatus.OK.value());
-        } else {
-            responseModel.setData(searchIdNo);
+        List<ViewSignatureResponseModel> viewSignatureResponseModels = signatureService.findByParentID(Long.parseLong(id));
+        if (viewSignatureResponseModels.size() == 1 && viewSignatureResponseModels.get(0).getResponseStatus() != ResponseStatus.OK) {
+            responseModel.setData(id);
+            responseModel.setMessage(viewSignatureResponseModels.get(0).getResponseStatus().getMessage());
             responseModel.setStatus(FAILURE);
-            responseModel.setMessage("No Image Found");
+            responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
+        } else {
+            responseModel.setData(viewSignatureResponseModels);
+            responseModel.setStatus(SUCCESS);
+            responseModel.setMessage("Total number of Signature(s) found is/are "+viewSignatureResponseModels.size());
             responseModel.setStatusCode(HttpStatus.OK.value());
         }
 
@@ -66,12 +66,12 @@ public class SignatureController {
                     content = @Content(schema = @Schema(implementation = ResponseModel.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
-    public ResponseModel save(@RequestHeader("token") String token, @RequestParam("searchIdNo") String searchIdNo,
+    public ResponseModel save(@RequestHeader("token") String token, @RequestParam("ID") String id,
                               @RequestParam("name") String name, @RequestParam("type") String type, @RequestParam("file") MultipartFile file) {
         ResponseModel responseModel = new ResponseModel();
         SaveSignatureRequestModel saveSignatureRequestModel = new SaveSignatureRequestModel();
         saveSignatureRequestModel.setUserId(TokenUtils.getUserId(token));
-        saveSignatureRequestModel.setSearchIdNo(searchIdNo);
+        saveSignatureRequestModel.setParentID(id);
         saveSignatureRequestModel.setType(type);
         saveSignatureRequestModel.setName(name);
         saveSignatureRequestModel.setTheFile(file);
@@ -79,12 +79,13 @@ public class SignatureController {
         if (saveSignatureResponseModel.getResponseStatus() == ResponseStatus.OK) {
             responseModel.setData(saveSignatureResponseModel);
             responseModel.setStatus(SUCCESS);
-            responseModel.setMessage(file.getName() + " Saved Successfully");
+            responseModel.setMessage("Signature saved successfully with id "+saveSignatureResponseModel.getId());
             responseModel.setStatusCode(HttpStatus.OK.value());
         } else {
-            responseModel.setStatus(FAILURE);
+            responseModel.setData(saveSignatureRequestModel);
             responseModel.setMessage("Image can't be saved, Please try after some time.");
-            responseModel.setStatusCode(HttpStatus.OK.value());
+            responseModel.setStatus(FAILURE);
+            responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
         }
         return responseModel;
     }
@@ -109,9 +110,10 @@ public class SignatureController {
             responseModel.setMessage(id +" Found Successfully");
             responseModel.setStatusCode(HttpStatus.OK.value());
         } else {
+            responseModel.setData(id);
             responseModel.setStatus(FAILURE);
-            responseModel.setMessage(id + " Not Found");
-            responseModel.setStatusCode(HttpStatus.OK.value());
+            responseModel.setMessage(getSignatureResponseModel.getResponseStatus().getMessage());
+            responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
         }
         return responseModel;
     }
@@ -125,16 +127,15 @@ public class SignatureController {
     })
     public ResponseModel delete(@RequestHeader("token") String token, @RequestParam("id") long id) {
         ResponseModel responseModel = new ResponseModel();
+        responseModel.setData(id);
         if (signatureService.delete(id)) {
-            responseModel.setData(id);
             responseModel.setStatus(SUCCESS);
             responseModel.setMessage(id + " Deleted Successfully");
             responseModel.setStatusCode(HttpStatus.OK.value());
         } else {
-            responseModel.setData(id);
             responseModel.setStatus(FAILURE);
             responseModel.setMessage("Image can't be deleted, Please try after some time.");
-            responseModel.setStatusCode(HttpStatus.OK.value());
+            responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
         }
 
         return responseModel;

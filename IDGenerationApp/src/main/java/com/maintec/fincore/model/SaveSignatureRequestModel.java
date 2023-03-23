@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 public class SaveSignatureRequestModel {
-   private String searchIdNo;
+   private String parentID;
    private MultipartFile theFile;
    private String customerID;
    private String name;
