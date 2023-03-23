@@ -53,6 +53,7 @@ public class CautionServiceImpl implements CautionService {
             List<Caution> cautions = cautionRepository.findAllByParenId((ID) idOptional.get());
             if (cautions != null && !cautions.isEmpty()) {
                 searchCautionResponseModels = (List) cautions.stream().map(findMapper).collect(Collectors.toList());
+                searchCautionResponseModels.get(0).setResponseStatus(ResponseStatus.OK);
             } else {
                 SearchCautionResponseModel searchCautionResponseModel = new SearchCautionResponseModel();
                 searchCautionResponseModel.setResponseStatus(ResponseStatus.CAUTION_NOT_FOUND);

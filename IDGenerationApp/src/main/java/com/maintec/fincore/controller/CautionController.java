@@ -53,7 +53,7 @@ public class CautionController {
     })
     public ResponseModel findByParentID(@RequestHeader("token") String token, @PathVariable("id") String id) {
         ResponseModel responseModel = new ResponseModel();
-        List<SearchCautionResponseModel> searchCautionResponseModels = this.cautionService.findByParentId(Long.parseLong(id));
+        List<SearchCautionResponseModel> searchCautionResponseModels = cautionService.findByParentId(Long.parseLong(id));
         if (searchCautionResponseModels.size() == 1 && searchCautionResponseModels.get(0).getResponseStatus() != ResponseStatus.OK) {
             responseModel.setData(id);
             responseModel.setMessage(searchCautionResponseModels.get(0).getResponseStatus().getMessage());
