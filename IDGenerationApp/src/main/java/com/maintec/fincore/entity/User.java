@@ -23,7 +23,7 @@ public class User {
    @SequenceGenerator(name = "USER_SEQUENCER", sequenceName = "USER_SEQUENCER")
    private Long id;
 
-   @ManyToOne(fetch = FetchType.LAZY, optional = false)
+   @ManyToOne(fetch = FetchType.EAGER, optional = false)
    @JoinColumn(name = "FC_BRANCH")
    private Branch branch;
 }
