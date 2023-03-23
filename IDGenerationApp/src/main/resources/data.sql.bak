@@ -38,7 +38,7 @@ insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description
 insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(38,NULL,'Kshatriya','CAST',NULL);
 insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(39,NULL,'Vaisya','CAST',NULL);
 insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(40,NULL,'Brahmin','CAST',NULL);
-insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(41,NULL,'Corrpondence',',ADDRESS TYPE',NULL);
+insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(41,NULL,'Corrpondence','ADDRESS TYPE',NULL);
 insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(42,NULL,'Office',',ADDRESS TYPE',NULL);
 insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(43,NULL,'Residence','ADDRESS TYPE',NULL);
 insert into general_masters (fc_general_masters_id,fc_soft_delete,fc_description,fc_master_types,fc_expiry_reason) values(44,NULL,'O negative','BLOOD GROUP',NULL);
