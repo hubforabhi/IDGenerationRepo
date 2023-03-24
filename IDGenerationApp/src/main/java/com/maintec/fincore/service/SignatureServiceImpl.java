@@ -7,9 +7,7 @@ import com.maintec.fincore.repository.SignatureRepository;
 import com.maintec.fincore.repository.UserRepository;
 import com.maintec.fincore.util.ImageType;
 import com.maintec.fincore.util.ResponseStatus;
-import com.maintec.fincore.util.Util;
 
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,11 +17,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import static com.maintec.fincore.IDGenerationConstants.BUSINESS_DATE_FORMATTER;
 
 @Service
 @Slf4j
@@ -57,6 +55,7 @@ public class SignatureServiceImpl implements SignatureService {
             if (images != null && !images.isEmpty()) {
                 viewSignatureResponseModels = images.stream().map(findMapper).peek(viewSignatureResponseModel -> {
                     viewSignatureResponseModel.setSearchIdNo(String.valueOf(parentID));
+                    viewSignatureResponseModel.setResponseStatus(ResponseStatus.OK);
                 }).collect(Collectors.toList());
             } else {
                 ViewSignatureResponseModel viewSignatureResponseModel = new ViewSignatureResponseModel();
@@ -87,8 +86,8 @@ public class SignatureServiceImpl implements SignatureService {
                         images = signatureRepository.save(images);
                         saveSignatureResponseModel.setId(images.getId());
                         saveSignatureResponseModel.setSearchIdNo(saveSignatureRequestModel.getParentID());
-                        saveSignatureResponseModel.setTitle(images.getTitle());
                         saveSignatureResponseModel.setType(images.getImageType());
+                        saveSignatureResponseModel.setEnteredDate(BUSINESS_DATE_FORMATTER.format(images.getEnteredDate()));
                         saveSignatureResponseModel.setResponseStatus(ResponseStatus.OK);
                     } else {
                         saveSignatureResponseModel.setResponseStatus(ResponseStatus.NOT_ABLE_TO_SAVE_FILE_ON_LOCAL);
@@ -109,9 +108,14 @@ public class SignatureServiceImpl implements SignatureService {
     @Override
     public GetSignatureResponseModel getImage(GetSignatureImageRequestModel getSignatureImageRequestModel) {
         GetSignatureResponseModel getSignatureResponseModel = new GetSignatureResponseModel();
+        getSignatureResponseModel.setId(getSignatureImageRequestModel.getId());
         Optional<Images> imagesOptional = signatureRepository.findImageUrlById(Long.parseLong(getSignatureImageRequestModel.getId()));
         if(imagesOptional.isPresent()) {
             getSignatureImageRequestModel.setImageURL(imagesOptional.get().getImageURL());
+            getSignatureResponseModel.setType(imagesOptional.get().getImageType());
+            getSignatureResponseModel.setExtension(
+                    imagesOptional.get().getImageURL() != null ?
+                            imagesOptional.get().getImageURL().substring(imagesOptional.get().getImageURL().lastIndexOf("-") + 1) : null);
             byte[] content = fileService.getContent(getSignatureImageRequestModel);
             if (content != null) {
                 getSignatureResponseModel.setContent(content);
@@ -132,16 +136,16 @@ public class SignatureServiceImpl implements SignatureService {
 
     private final Function<Images, ViewSignatureResponseModel> findMapper = images -> {
         ViewSignatureResponseModel viewSignatureResponseModel = new ViewSignatureResponseModel();
-        viewSignatureResponseModel.setName(images.getTitle());
         viewSignatureResponseModel.setType(images.getImageType());
-        viewSignatureResponseModel.setTitle(images.getTitle());
+        viewSignatureResponseModel.setId(String.valueOf(images.getId()));
+        viewSignatureResponseModel.setEnteredDate(BUSINESS_DATE_FORMATTER.format(images.getEnteredDate()));
         return viewSignatureResponseModel;
     };
     private final BiFunction<SaveSignatureRequestModel, ID, Images> saveFromMapper = (saveSignatureRequestModel, id) -> {
         Images images = new Images();
         images.setTitle(saveSignatureRequestModel.getTitle());
         images.setImageURL(saveSignatureRequestModel.getImageUrl());
-        images.setTitle(saveSignatureRequestModel.getTheFile().getName());
+        //images.setTitle(saveSignatureRequestModel.getTheFile().getName());
         images.setImageType(ImageType.getValue(saveSignatureRequestModel.getType()));
         images.setEnteredDate(LocalDate.now());
         images.setExpiryDate(SIGNATURE_FILE_DEFAULT_EXPIRY_DATE);

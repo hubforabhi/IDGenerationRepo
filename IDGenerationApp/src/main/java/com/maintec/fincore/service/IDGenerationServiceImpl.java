@@ -10,29 +10,23 @@ import com.maintec.fincore.repository.IDRepository;
 import com.maintec.fincore.repository.UserRepository;
 import com.maintec.fincore.system.constants.ProcessCodes;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static com.maintec.fincore.IDGenerationConstants.BUSINESS_DATE_FORMATTER;
+import static com.maintec.fincore.IDGenerationConstants.BUSINESS_DATE_TIME_FORMATTER;
 
 @Service
 @Slf4j
 public class IDGenerationServiceImpl implements IDGenerationService {
-
-   private static final DateTimeFormatter businessDateFormatter = DateTimeFormatter.ISO_DATE;
-   private static final DateTimeFormatter businessDateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME;
-
    @Autowired
    private IDRepository idRepository;
 
@@ -86,7 +80,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
       company.setKSTNo(companyIDGenerationRequestModel.getKstNo() );
       company.setRegistrationDate(
               companyIDGenerationRequestModel.getRegistrationDate() != null && companyIDGenerationRequestModel.getRegistrationDate().length() != 0 ?
-               LocalDate.parse(companyIDGenerationRequestModel.getRegistrationDate(), businessDateFormatter) : null );
+               LocalDate.parse(companyIDGenerationRequestModel.getRegistrationDate(), BUSINESS_DATE_FORMATTER) : null );
       company.setRegistrationNo(companyIDGenerationRequestModel.getRegistrationNo() );
       company.setRegistrationPlace(companyIDGenerationRequestModel.getRegistrationPlace() );
       //company.setFirmType( form.getConstitutionfirmType() );
@@ -125,7 +119,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
          passport.setIssuedAt(personalIDGenerationRequestModel.getIssuedAt());
          passport.setIssueDate(
                  personalIDGenerationRequestModel.getIssuedDate() != null && personalIDGenerationRequestModel.getIssuedDate().length() != 0 ?
-                         LocalDate.parse(personalIDGenerationRequestModel.getIssuedDate(), businessDateFormatter) : null );
+                         LocalDate.parse(personalIDGenerationRequestModel.getIssuedDate(), BUSINESS_DATE_FORMATTER) : null );
          passport.setPassportORDLNo(personalIDGenerationRequestModel.getPassportDlNo() );
          passport.setPassportORDLType(personalIDGenerationRequestModel.getPassportDlType() );
       }
@@ -181,7 +175,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
 
       customer.setDateOfBirth(
               personalIDGenerationRequestModel.getDate() != null && personalIDGenerationRequestModel.getDate().length() != 0 ?
-                      LocalDate.parse(personalIDGenerationRequestModel.getDate(), businessDateFormatter) : null );
+                      LocalDate.parse(personalIDGenerationRequestModel.getDate(), BUSINESS_DATE_FORMATTER) : null );
       customer.setGender(personalIDGenerationRequestModel.getGender() );
       customer.setHandicapped(personalIDGenerationRequestModel.getHandicapped() );
       customer.setIdentificationMark(personalIDGenerationRequestModel.getIdentificationmark() );
@@ -245,7 +239,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
          address.setFromDate(LocalDate.now());
          address.setEnteredDate(LocalDate.now());
          if(personalIDGenerationRequestModel.getToDate()!=null && !"".equals(personalIDGenerationRequestModel.getToDate()))
-            address.setToDate(LocalDate.parse(personalIDGenerationRequestModel.getToDate(), businessDateFormatter));
+            address.setToDate(LocalDate.parse(personalIDGenerationRequestModel.getToDate(), BUSINESS_DATE_FORMATTER));
 
       }
       return address;
@@ -271,7 +265,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
       EmailDetails email = new EmailDetails();
       email.setFromDate(LocalDateTime.now());
       if(personalIDGenerationRequestModel.getTransactionDate() != null && !"".equalsIgnoreCase(personalIDGenerationRequestModel.getTransactionDate()))
-         email.setTransactionDate(LocalDateTime.parse(personalIDGenerationRequestModel.getTransactionDate(), businessDateTimeFormatter));
+         email.setTransactionDate(LocalDateTime.parse(personalIDGenerationRequestModel.getTransactionDate(), BUSINESS_DATE_TIME_FORMATTER));
 
       if(personalIDGenerationRequestModel.getEmailID() != null)
          email.setEmailID(personalIDGenerationRequestModel.getEmailID());
@@ -302,9 +296,9 @@ public class IDGenerationServiceImpl implements IDGenerationService {
          profession.setDivision(personalIDGenerationRequestModel.getDivision());
          profession.setPlaceOfWorking(personalIDGenerationRequestModel.getPlaceOfWork());
          if(personalIDGenerationRequestModel.getAppointmentDate() != null && !"".equalsIgnoreCase(personalIDGenerationRequestModel.getAppointmentDate()))
-            profession.setAppointmentDate(LocalDate.parse(personalIDGenerationRequestModel.getAppointmentDate(), businessDateFormatter));
+            profession.setAppointmentDate(LocalDate.parse(personalIDGenerationRequestModel.getAppointmentDate(), BUSINESS_DATE_FORMATTER));
          if(personalIDGenerationRequestModel.getRetirementDate() != null && !"".equalsIgnoreCase(personalIDGenerationRequestModel.getRetirementDate()))
-            profession.setRetirementDate(LocalDate.parse(personalIDGenerationRequestModel.getRetirementDate(), businessDateFormatter));
+            profession.setRetirementDate(LocalDate.parse(personalIDGenerationRequestModel.getRetirementDate(), BUSINESS_DATE_FORMATTER));
          //inserting basic pay value.....
          if(personalIDGenerationRequestModel.getBasicPay() !=null && !"".equals(personalIDGenerationRequestModel.getBasicPay() )){
             profession.setBasicPay(new BigDecimal(personalIDGenerationRequestModel.getBasicPay()));
@@ -325,7 +319,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
          enterprise.setEnteredBy(user);
          enterprise.setEnteredDate(LocalDate.now());
          if(personalIDGenerationRequestModel.getExpiredate()!=null && personalIDGenerationRequestModel.getExpiredate()!="")
-            enterprise.setExpireDate(LocalDate.parse(personalIDGenerationRequestModel.getExpiredate(), businessDateFormatter));
+            enterprise.setExpireDate(LocalDate.parse(personalIDGenerationRequestModel.getExpiredate(), BUSINESS_DATE_FORMATTER));
       }
       return enterprise;
    };

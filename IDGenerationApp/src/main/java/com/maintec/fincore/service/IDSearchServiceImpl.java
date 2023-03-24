@@ -45,7 +45,7 @@ public class IDSearchServiceImpl implements IDSearchService {
     public IDSearchResponseModel searchByName(IDSearchRequestModel idSearchRequestModel) {
         IDSearchResponseModel idSearchResponseModel = new IDSearchResponseModel();
         idSearchResponseModel.setName(idSearchRequestModel.getName());
-        dtoListMapper.accept(idRepository.findIDSearchByName(idSearchRequestModel.getId()), idSearchResponseModel);
+        dtoListMapper.accept(idRepository.findIDSearchByName(idSearchRequestModel.getName()), idSearchResponseModel);
         return idSearchResponseModel;
     }
 
@@ -53,7 +53,7 @@ public class IDSearchServiceImpl implements IDSearchService {
     public IDSearchResponseModel searchByAadhaar(IDSearchRequestModel idSearchRequestModel) {
         IDSearchResponseModel idSearchResponseModel = new IDSearchResponseModel();
         idSearchResponseModel.setAadhaar(idSearchRequestModel.getAadhaar());
-        dtoListMapper.accept(idRepository.findIDSearchByAadhaar(idSearchRequestModel.getId()), idSearchResponseModel);
+        dtoListMapper.accept(idRepository.findIDSearchByAadhaar(idSearchRequestModel.getAadhaar()), idSearchResponseModel);
         return idSearchResponseModel;
     }
 
@@ -61,7 +61,7 @@ public class IDSearchServiceImpl implements IDSearchService {
     public IDSearchResponseModel searchByPfNo(IDSearchRequestModel idSearchRequestModel) {
         IDSearchResponseModel idSearchResponseModel = new IDSearchResponseModel();
         idSearchResponseModel.setPfNo(idSearchRequestModel.getAadhaar());
-        List<IDSearchByIdDTO> dtoList = idRepository.findIDSearchByAadhaar(idSearchRequestModel.getPfNo());
+        List<IDSearchByIdDTO> dtoList = idRepository.findIDSearchByPFNo(idSearchRequestModel.getPfNo());
         dtoListMapper.accept(dtoList, idSearchResponseModel);
         return idSearchResponseModel;
     }
@@ -82,8 +82,10 @@ public class IDSearchServiceImpl implements IDSearchService {
         if(userOptional.isPresent()) {
             User user = userOptional.get();
             Bank bank = user.getBranch().getBankId();
+            if(bank.isCentralised())
             idSearchRequestModel.setAccountNo(
-                    bank.isCentralised() ? idSearchRequestModel.getAccountNo() : getFullAccountNo(bank.getBankMicrCode(), user, idSearchRequestModel.getAccountNo(),false));
+                bank.isCentralised() ? idSearchRequestModel.getAccountNo() :
+                    getFullAccountNo(bank.getBankMicrCode(), user, idSearchRequestModel.getAccountNo(),false));
             dtoListMapper.accept(idRepository.findIDSearchByAccountNo(idSearchRequestModel.getAccountNo()), idSearchResponseModel);
         } else {
             idSearchResponseModel.setResponseStatus(ResponseStatus.USER_NOT_FOUND);

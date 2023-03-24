@@ -9,6 +9,7 @@ public class GetSignatureResponseModel {
     private String id;
     private String type;
     private byte[] content;
+    private String extension;
 
     @JsonIgnore
     private ResponseStatus responseStatus;

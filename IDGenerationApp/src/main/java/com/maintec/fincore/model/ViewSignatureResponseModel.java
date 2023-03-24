@@ -8,10 +8,10 @@ import com.maintec.fincore.util.ResponseStatus;
 
 @Data
 public class ViewSignatureResponseModel {
+   private String id;
    private String searchIdNo;
-   private String name;
    private String type;
-   private String title;
+   private String enteredDate;
 
    @JsonIgnore
     private ResponseStatus responseStatus;

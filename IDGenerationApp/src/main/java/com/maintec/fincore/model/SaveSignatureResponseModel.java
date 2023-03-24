@@ -10,7 +10,7 @@ public class SaveSignatureResponseModel {
    private String searchIdNo;
    private long id;
    private String type;
-   private String title;
+   private String enteredDate;
 
    @JsonIgnore
    ResponseStatus responseStatus;
