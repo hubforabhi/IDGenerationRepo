@@ -49,6 +49,8 @@ public class IDGenerationServiceImpl implements IDGenerationService {
             idRepository.save(id);
             companyIDGenerationResponseModel.setId(String.valueOf(id.getId()));
          }
+      } else {
+         companyIDGenerationResponseModel.setResponseStatus(ResponseStatus.USER_NOT_FOUND);
       }
       return companyIDGenerationResponseModel;
    }
@@ -67,6 +69,8 @@ public class IDGenerationServiceImpl implements IDGenerationService {
          } else {
             personalIDGenerationResponseModel.setResponseStatus(ResponseStatus.CONSTITUTION_NOT_SUPPORTED);
          }
+      } else {
+         personalIDGenerationResponseModel.setResponseStatus(ResponseStatus.USER_NOT_FOUND);
       }
       return personalIDGenerationResponseModel;
    }
