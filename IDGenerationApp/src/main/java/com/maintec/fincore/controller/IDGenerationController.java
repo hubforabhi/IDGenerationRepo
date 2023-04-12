@@ -2,6 +2,7 @@ package com.maintec.fincore.controller;
 
 import com.maintec.fincore.model.*;
 import com.maintec.fincore.service.IDGenerationService;
+import com.maintec.fincore.util.ResponseStatus;
 import com.maintec.fincore.util.TokenUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -72,7 +73,7 @@ public class IDGenerationController {
       ResponseModel responseModel = new ResponseModel();
       personalIDGenerationRequestModel.setUserId(TokenUtils.getUserId(token));
       PersonalIDGenerationResponseModel personalIDGenerationResponseModel = this.idGenerationService.save(personalIDGenerationRequestModel);
-      if(personalIDGenerationResponseModel != null) {
+      if(personalIDGenerationResponseModel.getResponseStatus() == ResponseStatus.OK) {
          responseModel.setData(personalIDGenerationResponseModel);
          responseModel.setStatus(SUCCESS);
          responseModel.setMessage("Personal information has Successfully Saved, ID : " + personalIDGenerationResponseModel.getId() +
@@ -81,7 +82,7 @@ public class IDGenerationController {
       } else {
          responseModel.setData(personalIDGenerationRequestModel);
          responseModel.setStatus(FAILURE);
-         responseModel.setMessage("Please try after some time");
+         responseModel.setMessage(personalIDGenerationResponseModel.getResponseStatus().getMessage());
          responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
       }
 

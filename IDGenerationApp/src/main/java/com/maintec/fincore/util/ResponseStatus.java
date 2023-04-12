@@ -12,7 +12,9 @@ public enum ResponseStatus {
     SIGNATURE_NOT_FOUND("Signature Image not found"),
 
     SIGNATURE_IMAGE_TYPE_NOT_SUPPORTED("Signature image type not supported"),
-    NOT_ABLE_TO_SAVE_FILE_ON_LOCAL("Not able to save Signature Image");
+    NOT_ABLE_TO_SAVE_FILE_ON_LOCAL("Not able to save Signature Image"),
+
+    CONSTITUTION_NOT_SUPPORTED("Constitution is not valid");
 
     private String message;
 

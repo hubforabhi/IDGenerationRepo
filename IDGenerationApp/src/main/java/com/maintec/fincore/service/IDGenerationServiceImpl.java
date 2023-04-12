@@ -9,6 +9,7 @@ import com.maintec.fincore.repository.GeneralMastersRepository;
 import com.maintec.fincore.repository.IDRepository;
 import com.maintec.fincore.repository.UserRepository;
 import com.maintec.fincore.system.constants.ProcessCodes;
+import com.maintec.fincore.util.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,8 @@ public class IDGenerationServiceImpl implements IDGenerationService {
             id.setConstitution(generalMastersOptional.get());
             idRepository.save(id);
             personalIDGenerationResponseModel.setId(String.valueOf(id.getId()));
+         } else {
+            personalIDGenerationResponseModel.setResponseStatus(ResponseStatus.CONSTITUTION_NOT_SUPPORTED);
          }
       }
       return personalIDGenerationResponseModel;
