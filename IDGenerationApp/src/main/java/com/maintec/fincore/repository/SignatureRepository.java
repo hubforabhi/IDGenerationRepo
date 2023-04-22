@@ -14,5 +14,5 @@ public interface SignatureRepository extends JpaRepository<Images, Long> {
 
    Optional<Images> findImageUrlById(long id);
 
-   long deleteById(long id);
+   Long deleteById(long id);
 }
