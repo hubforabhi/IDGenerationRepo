@@ -10,4 +10,8 @@ public class CompanyIDGenerationResponseModel extends CompanyIDGenerationRequest
 
    @JsonIgnore
    private ResponseStatus responseStatus;
+
+   public CompanyIDGenerationResponseModel() {
+      responseStatus = ResponseStatus.OK;
+   }
 }

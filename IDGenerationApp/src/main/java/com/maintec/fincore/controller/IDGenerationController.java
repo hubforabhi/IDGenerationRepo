@@ -23,6 +23,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
 import static com.maintec.fincore.IDGenerationConstants.FAILURE;
 import static com.maintec.fincore.IDGenerationConstants.SUCCESS;
 
@@ -72,20 +78,42 @@ public class IDGenerationController {
    public ResponseModel save(@RequestHeader("token") String token, @RequestBody PersonalIDGenerationRequestModel personalIDGenerationRequestModel) {
       ResponseModel responseModel = new ResponseModel();
       personalIDGenerationRequestModel.setUserId(TokenUtils.getUserId(token));
-      PersonalIDGenerationResponseModel personalIDGenerationResponseModel = this.idGenerationService.save(personalIDGenerationRequestModel);
-      if(personalIDGenerationResponseModel.getResponseStatus() == ResponseStatus.OK) {
-         responseModel.setData(personalIDGenerationResponseModel);
-         responseModel.setStatus(SUCCESS);
-         responseModel.setMessage("Personal information has Successfully Saved, ID : " + personalIDGenerationResponseModel.getId() +
-                 ", Customer : "+ personalIDGenerationRequestModel.getCustomerFName() + ", Pending for Approval");
-         responseModel.setStatusCode(HttpStatus.OK.value());
+      Map<String, String> errorMessages = personalIDGenerationSaveValidator.apply(personalIDGenerationRequestModel);
+      if(errorMessages.isEmpty()) {
+         PersonalIDGenerationResponseModel personalIDGenerationResponseModel = this.idGenerationService.save(personalIDGenerationRequestModel);
+         if(personalIDGenerationResponseModel.getResponseStatus() == ResponseStatus.OK) {
+            responseModel.setData(personalIDGenerationResponseModel);
+            responseModel.setStatus(SUCCESS);
+            responseModel.setMessage("Personal information has Successfully Saved, ID : " + personalIDGenerationResponseModel.getId() +
+                    ", Customer : "+ personalIDGenerationRequestModel.getCustomerFName() + ", Pending for Approval");
+            responseModel.setStatusCode(HttpStatus.OK.value());
+         } else {
+            responseModel.setData(personalIDGenerationRequestModel);
+            responseModel.setStatus(FAILURE);
+            responseModel.setMessage(personalIDGenerationResponseModel.getResponseStatus().getMessage());
+            responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
+         }
       } else {
-         responseModel.setData(personalIDGenerationRequestModel);
+         responseModel.setData(errorMessages);
          responseModel.setStatus(FAILURE);
-         responseModel.setMessage(personalIDGenerationResponseModel.getResponseStatus().getMessage());
+         responseModel.setMessage("Validation Failure");
          responseModel.setStatusCode(HttpStatus.EXPECTATION_FAILED.value());
       }
 
       return responseModel;
    }
+
+   private Function<PersonalIDGenerationRequestModel, Map<String,String>> personalIDGenerationSaveValidator = personalIDGenerationRequestModel -> {
+      Map<String, String> errorMessages = new HashMap<>();
+      if(personalIDGenerationRequestModel.getConstitution() == null) {
+         errorMessages.put("constitution", "Constitution can't be null");
+      }
+      if(personalIDGenerationRequestModel.getMaritalStatus() == null) {
+         errorMessages.put("maritalStatus", "Marital Status can't be null");
+      }
+      if(personalIDGenerationRequestModel.getToDate() == null) {
+         errorMessages.put("toDate", "To Date can't be null");
+      }
+      return errorMessages;
+   };
 }

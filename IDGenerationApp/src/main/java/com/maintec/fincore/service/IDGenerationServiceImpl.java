@@ -187,7 +187,7 @@ public class IDGenerationServiceImpl implements IDGenerationService {
       customer.setHandicapped(personalIDGenerationRequestModel.getHandicapped() );
       customer.setIdentificationMark(personalIDGenerationRequestModel.getIdentificationmark() );
       //customer.setInitial( form.getInitial() );
-      customer.setMarried(personalIDGenerationRequestModel.getMaritalStatus().equals("1") ? false : true );
+      customer.setMarried("1".equalsIgnoreCase(personalIDGenerationRequestModel.getMaritalStatus()) ? false : true );
       customer.setMemberNumber(personalIDGenerationRequestModel.getMembernumber() );
       customer.setMemberType(personalIDGenerationRequestModel.getMemberType() );
       customer.setNationality(personalIDGenerationRequestModel.getNationality() );

@@ -10,4 +10,8 @@ public class PersonalIDGenerationResponseModel extends PersonalIDGenerationReque
 
     @JsonIgnore
     private ResponseStatus responseStatus;
+
+    public PersonalIDGenerationResponseModel() {
+        responseStatus = ResponseStatus.OK;
+    }
 }
